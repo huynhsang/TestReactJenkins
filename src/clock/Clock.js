@@ -8,23 +8,36 @@ class Abc extends React.Component {
 		
       this.state = {
          data: 0,
-         Content: "Content from state.."
-      }
+         Content: "Content from state..",
+         count: 0
+      }                
 
       //a:any = "abc";
       //this.a = "Syda";
 
       this.setNewNumber = this.setNewNumber.bind(this)
+      this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
    };
 
-   setNewNumber() {
+   forceUpdateHandler(){
+      //this.forceUpdate(); // support by reactjs
+      this.state.count += 1;
+      console.log(this.state.count)
+   }
+
+   setNewNumber(t) {
+      console.log(t.target);
       this.setState({data: this.state.data + 1})
    }
 
    render() {
       return (
          <div>
+            <button onClick = {this.forceUpdateHandler}>FORCE UPDATE</button>
+            <h4>Random number: {Math.random()}</h4>
+            <h2>{this.state.count}</h2>
             <button onClick = {this.setNewNumber}>INCREMENT</button>
+            <input type="button" value="add more" onClick= {this.setNewNumber}/>
             <p>{this.a}</p>
             <Content myNumber = {this.state.data}></Content>
          </div>
@@ -44,9 +57,9 @@ class Content extends React.Component {
 
    componentDidMount() {
       console.log('Component DID MOUNT!');
-      window.setInterval(function () {
+      /*window.setInterval(function () {
          this.show();
-      }.bind(this), 1000);
+      }.bind(this), 1000);*/
    }
 
    componentWillReceiveProps(newProps) {    
